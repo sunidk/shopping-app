@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"; //importing React, useEffect and useState Hooks
+import { useEffect, useState } from "react"; //importing React, useEffect and useState Hooks
 import axios from "axios"; //importing axios
 import { useParams } from "react-router-dom"; //importing useparams
 import { NavLink } from "react-router-dom"; //importing NavLink
@@ -22,7 +22,7 @@ function ProductDetail() {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [id]);
 
   // Function for incrementing count in cart when Add to cart button is clicked
   const addToCart = () => {

@@ -1,4 +1,3 @@
-import React from "react"; //importing React
 import { NavLink } from "react-router-dom"; //importing NavLink
 import Footer from "./Footer"; //importing Footer Component
 

@@ -1,5 +1,3 @@
-import React from "react"; //importing React
-
 function Footer() {
   return (
     <div>
@@ -52,7 +50,7 @@ function Footer() {
         {/* <!-- Copyright --> */}
         <div className="text-center p-3 bg-secondary">
           © 2022 Copyright :
-          <a className="text-white ms-2" target="_blank" href="https://www.myntra.com/">
+          <a className="text-white ms-2" target="_blank" href="https://www.myntra.com/" rel="noreferrer">
             Myntra.com
           </a>
         </div>

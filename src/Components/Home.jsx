@@ -1,4 +1,3 @@
-import React from "react"; //imporing React
 import Products from "./Products"; //importing Products component
 import { NavLink } from "react-router-dom"; //importing NavLink
 

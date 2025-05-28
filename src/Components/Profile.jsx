@@ -1,4 +1,3 @@
-import React from "react"; //importing React
 import { NavLink } from "react-router-dom"; //importing NavLink
 import Footer from "./Footer"; //importing Footer component
 
@@ -16,6 +15,8 @@ function Profile() {
                       src="https://cdn-icons-png.flaticon.com/512/2202/2202112.png"
                       className="rounded-circle img-fluid"
                       width="210px"
+                      alt="Profile"
+
                     />
                   </div>
                   <h4 className="mb-3">Sunil</h4>
@@ -33,7 +34,7 @@ function Profile() {
                       <img
                         src="https://cdn-icons-png.flaticon.com/512/1008/1008010.png"
                         width="23px"
-                        alt=""
+                        alt="Profile"
                       />
                       <button className="btn btn-outline-dark mt-2">
                         My Orders
@@ -45,7 +46,7 @@ function Profile() {
                         <img
                           src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png"
                           width="23px"
-                          alt=""
+                          alt="Profile"
                         />
                         <button className="btn btn-outline-dark mt-2">
                           My Cart

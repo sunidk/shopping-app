@@ -1,4 +1,3 @@
-import React from "react"; //importing React
 import { useEffect, useState } from "react"; //importing useEffect and useState hooks
 import axios from "axios"; //importing axios
 import { NavLink } from "react-router-dom"; //importing Navlink
