@@ -11,7 +11,7 @@ import ProductDetail from "./Components/ProductDetail";
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter basename="/shoppingapp">
         <Navbar/>
         <Routes>
           <Route path="/" element={<Home/>}/>
