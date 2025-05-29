@@ -1,6 +1,5 @@
 {
   "name": "shoppingapp",
-  "homepage": "https://sunidk.github.io/shoppingapp",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
