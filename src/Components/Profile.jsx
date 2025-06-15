@@ -1,5 +1,7 @@
-import { NavLink } from "react-router-dom"; //importing NavLink
-import Footer from "./Footer"; //importing Footer component
+import { NavLink } from "react-router-dom";
+import { lazy, Suspense } from "react";
+
+const Footer = lazy(() => import("./Footer"));
 
 function Profile() {
   return (
@@ -16,11 +18,9 @@ function Profile() {
                       className="rounded-circle img-fluid"
                       width="210px"
                       alt="Profile"
-
                     />
                   </div>
                   <h4 className="mb-3">Sunil</h4>
-                  {/* {Navigation link to Products component} */}
                   <NavLink to={"/products"}>
                     <button
                       type="button"
@@ -34,19 +34,18 @@ function Profile() {
                       <img
                         src="https://cdn-icons-png.flaticon.com/512/1008/1008010.png"
                         width="23px"
-                        alt="Profile"
+                        alt="Orders"
                       />
                       <button className="btn btn-outline-dark mt-2">
                         My Orders
                       </button>
                     </div>
                     <div className="px-3">
-                      {/* {Navigation link to Cart component} */}
                       <NavLink to={"/cart"}>
                         <img
                           src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png"
                           width="23px"
-                          alt="Profile"
+                          alt="Cart"
                         />
                         <button className="btn btn-outline-dark mt-2">
                           My Cart
@@ -57,7 +56,7 @@ function Profile() {
                       <img
                         src="https://cdn-icons-png.flaticon.com/512/482/482541.png"
                         width="23px"
-                        alt=""
+                        alt="Wallet"
                       />
                       <button className="btn btn-outline-dark mt-2">
                         My Wallet
@@ -70,8 +69,9 @@ function Profile() {
           </div>
         </div>
       </section>
-      {/* {Adding Footer component} */}
-      <Footer />
+      <Suspense fallback={<div>Loading footer...</div>}>
+        <Footer />
+      </Suspense>
     </div>
   );
 }

@@ -1,5 +1,7 @@
-import Products from "./Products"; //importing Products component
-import { NavLink } from "react-router-dom"; //importing NavLink
+import { NavLink } from "react-router-dom";
+import React, { Suspense, lazy } from "react";
+
+const Products = lazy(() => import("./Products"));
 
 function Home() {
   return (
@@ -17,7 +19,6 @@ function Home() {
               NEW SEASON ARRIVALS
             </h5>
             <p className="card-text lead fs-1">CHECK OUT ALL THE TRENDS</p>
-            {/* {Navigation link to Products component} */}
             <NavLink to={"/products"}>
               <button type="button" className="btn btn-dark btn-rounded btn-lg">
                 Shop Now
@@ -26,8 +27,9 @@ function Home() {
           </div>
         </div>
       </div>
-      {/* {Adding products component} */}
-      <Products />
+      <Suspense fallback={<div>Loading products...</div>}>
+        <Products />
+      </Suspense>
     </div>
   );
 }

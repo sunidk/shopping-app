@@ -1,12 +1,11 @@
-import { useState } from "react"; //importing React and useState Hook
-import axios from "axios"; //importing axios
-import { NavLink } from "react-router-dom"; //importing NavLink
+import { useState } from "react";
+import axios from "axios";
+import { NavLink } from "react-router-dom";
 
 function Navbar() {
-  const [value, setValue] = useState(""); //setting initial state of value as empty string
-  const [data, setData] = useState([]); //setting initial state of data as empty array
+  const [value, setValue] = useState("");
+  const [data, setData] = useState([]);
 
-  //Function Component for getting Search Results when user type in search box
   const onSearch = (e) => {
     setValue(e.target.value);
     axios
@@ -19,7 +18,6 @@ function Navbar() {
       });
   };
   return (
-    // {Navbar starts}
     <div id="navbar">
       <nav className="navbar navbar-expand-lg bg-dark">
         <div className="container-fluid">
@@ -43,19 +41,11 @@ function Navbar() {
                 width="150px"
               />
               <li className="nav-item mx-5">
-                {/* {Navigation link to Home Component} */}
                 <NavLink to={"/"}>
-                  <h5
-                    className="nav-link active text-light"
-                    aria-current="page"
-                    href="#"
-                  >
-                    Home
-                  </h5>
+                  <h5 className="nav-link active text-light">Home</h5>
                 </NavLink>
               </li>
               <li className="nav-item">
-                {/* {Navigation link to Products Component} */}
                 <NavLink to={"/products"}>
                   <h5 className="nav-link text-light">Products</h5>
                 </NavLink>
@@ -70,7 +60,6 @@ function Navbar() {
                 placeholder="Search"
                 aria-label="Search"
               />
-              {/* {Navigation link to Cart Component} */}
               <NavLink to={"/cart"}>
                 <button className="btn btn-light ms-5" type="submit">
                   <div className="d-flex align-items-center">
@@ -86,7 +75,6 @@ function Navbar() {
                 </button>
               </NavLink>
             </form>
-            {/* {Navigation link to Profile Component} */}
             <NavLink to={"/profile"}>
               <img
                 src="https://cdn-icons-png.flaticon.com/512/1458/1458201.png"
@@ -98,9 +86,7 @@ function Navbar() {
           </div>
         </div>
       </nav>
-      {/* {Navbar Ends} */}
 
-      {/* {displaying all the possible product list related to searchTerm} */}
       <div className="dropdown" id="search">
         {data
           .filter((product) => {
