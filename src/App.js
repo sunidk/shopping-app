@@ -13,7 +13,7 @@ const ProductDetail = lazy(() => import("./Components/ProductDetail"));
 function App() {
   return (
     <div className="App">
-      <BrowserRouter basename="/shoppingapp">
+      <BrowserRouter basename="/">
         <Navbar />
         <Suspense fallback={<div className="text-center mt-5">Loading...</div>}>
           <Routes>
