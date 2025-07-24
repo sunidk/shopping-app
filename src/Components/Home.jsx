@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import React, { Suspense, lazy } from "react";
+import { Suspense, lazy } from "react";
 
 const Products = lazy(() => import("./Products"));
 
