@@ -52,7 +52,7 @@ function ProductDetail() {
                   <span className="detail-rating-count">({product.rating.count} reviews)</span>
                 </p>
               )}
-              <p className="detail-price">Rs. {formatINR(product.price)}/-</p>
+              <p className="detail-price">₹{formatINR(product.price)}</p>
               <p className="detail-description">{product.description}</p>
               <div className="detail-actions">
                 <button className="btn btn-primary" onClick={handleAddToCart}>

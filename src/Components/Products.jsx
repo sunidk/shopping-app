@@ -87,7 +87,7 @@ function Products() {
                 </div>
                 <div className="product-body">
                   <p className="product-title">{product.title}</p>
-                  <p className="product-price">Rs. {formatINR(product.price)}/-</p>
+                  <p className="product-price">₹{formatINR(product.price)}</p>
                 </div>
               </NavLink>
             ))}
