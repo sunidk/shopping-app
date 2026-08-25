@@ -1,6 +1,8 @@
 # Shopping App
 
-A modern e-commerce web application built with React.
+Live site: [https://sunidk-shopping.netlify.app/](https://sunidk-shopping.netlify.app/)
+
+A demo e-commerce web app with product browsing, cart, and checkout flow, built with React and Bootstrap, pulling live product data from the Fake Store API.
 
 ## Features
 
@@ -12,40 +14,19 @@ A modern e-commerce web application built with React.
 - Responsive design using Bootstrap
 - Fast navigation with React Router and lazy loading
 
-## Project Structure
-
-- `src/Components/` – Main React components (Home, Products, Cart, Profile, ProductDetail, Navbar, etc.)
-- `src/App.js` – Main app and routing logic
-
 ## Getting Started
 
-### 1. Install dependencies
-
-```sh
+```bash
 npm install
-```
-
-### 2. Start the development server
-
-```sh
 npm start
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view the app in your browser.
 
-## Scripts
+## Build & Deploy
 
-- `npm start` – Run the app in development mode
-- `npm run build` – Build the app for production
-- `npm test` – Run tests
+```bash
+npm run build
+```
 
-## Usage
-
-- Browse the home page for new arrivals and trends
-- Click "Shop Now" to view all products
-- Add products to your cart and proceed to checkout
-- View your profile and manage your account
-
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
+Deploy the production build from the `build/` folder to any static hosting service (Netlify, Vercel, GitHub Pages, etc.).
