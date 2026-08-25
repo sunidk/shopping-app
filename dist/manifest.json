@@ -1,0 +1,15 @@
+{
+  "short_name": "Cartly",
+  "name": "Cartly — Demo Storefront",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#faf8f6",
+  "theme_color": "#faf8f6",
+  "icons": [
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ]
+}
