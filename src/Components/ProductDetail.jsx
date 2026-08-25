@@ -1,83 +1,72 @@
 import { useEffect, useState, lazy, Suspense } from "react";
 import axios from "axios";
 import { useParams, NavLink } from "react-router-dom";
+import "./ProductDetail.css";
+import { useCart } from "../context/CartContext";
+import { formatINR } from "../utils/currency";
 
 const Footer = lazy(() => import("./Footer"));
 
 function ProductDetail() {
   const { id } = useParams();
-  const [product, setProduct] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [count, setCount] = useState(0);
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [added, setAdded] = useState(false);
+  const { addItem } = useCart();
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- resetting loading/added on id change is intentional
     setLoading(true);
+    setAdded(false);
     axios
       .get(`https://fakestoreapi.com/products/${id}`)
       .then((response) => {
         setProduct(response.data);
         setLoading(false);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => console.log(error));
   }, [id]);
 
-  const addToCart = () => {
-    setCount(count + 1);
-    const myCart = document.getElementById("cart");
-    if (myCart) {
-      myCart.innerText = `Cart(${count + 1})`;
-      myCart.style.color = "red";
-    }
-    alert("Successfully added to cart");
-  };
-
-  const Loading = () => {
-    return <>Loading...</>;
-  };
-
-  const ShowProduct = () => {
-    return (
-      <>
-        <div className="col-md-6">
-          <img
-            src={product.image}
-            alt={product.title}
-            height="400px"
-            width="400px"
-          />
-        </div>
-        <div className="col-md-6">
-          <h4 className="text-uppercase text-black-50">{product.category}</h4>
-          <h1 className="display-5">{product.title}</h1>
-          <p>
-            Rating {product.rating && product.rating.rate}
-            <i className="fa fa-star"></i>
-          </p>
-          <h3 className="display-6 fw-bold my-3">Rs. {product.price} /-</h3>
-          <p className="lead">{product.description}</p>
-          <button className="btn btn-dark py-2" onClick={addToCart}>
-            Add to Cart
-          </button>
-          <NavLink to={"/cart"}>
-            <button className="btn btn-outline-dark ms-2 py-2">
-              Go to Cart
-            </button>
-          </NavLink>
-        </div>
-      </>
-    );
+  const handleAddToCart = () => {
+    addItem(product);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
   };
 
   return (
-    <div>
-      <div className="container py-5">
-        <div className="row py-4">
-          {loading ? <Loading /> : <ShowProduct />}
-        </div>
+    <div className="product-detail">
+      <div className="container">
+        {loading || !product ? (
+          <div className="page-loading">Loading...</div>
+        ) : (
+          <div className="detail-grid">
+            <div className="detail-image-wrap">
+              <img src={product.image} alt={product.title} />
+            </div>
+            <div className="detail-info">
+              <span className="eyebrow">{product.category}</span>
+              <h1 className="detail-title">{product.title}</h1>
+              {product.rating && (
+                <p className="detail-rating">
+                  ★ {product.rating.rate}{" "}
+                  <span className="detail-rating-count">({product.rating.count} reviews)</span>
+                </p>
+              )}
+              <p className="detail-price">Rs. {formatINR(product.price)}/-</p>
+              <p className="detail-description">{product.description}</p>
+              <div className="detail-actions">
+                <button className="btn btn-primary" onClick={handleAddToCart}>
+                  {added ? "Added ✓" : "Add to Cart"}
+                </button>
+                <NavLink to="/cart">
+                  <button className="btn btn-ghost">Go to Cart</button>
+                </NavLink>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-      <Suspense fallback={<div>Loading footer...</div>}>
+      <Suspense fallback={null}>
         <Footer />
       </Suspense>
     </div>

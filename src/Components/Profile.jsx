@@ -1,75 +1,42 @@
 import { NavLink } from "react-router-dom";
 import { lazy, Suspense } from "react";
+import "./Profile.css";
 
 const Footer = lazy(() => import("./Footer"));
 
+const QUICK_LINKS = [
+  { label: "My Orders", to: null },
+  { label: "My Cart", to: "/cart" },
+  { label: "My Wallet", to: null },
+];
+
 function Profile() {
   return (
-    <div>
-      <section className="vh-100">
-        <div className="container py-5 h-100">
-          <div className="row d-flex justify-content-center align-items-center h-100">
-            <div className="col-md-12 col-xl-4">
-              <div className="card">
-                <div className="card-body text-center">
-                  <div className="mt-3 mb-4">
-                    <img
-                      src="https://cdn-icons-png.flaticon.com/512/2202/2202112.png"
-                      className="rounded-circle img-fluid"
-                      width="210px"
-                      alt="Profile"
-                    />
-                  </div>
-                  <h4 className="mb-3">Sunil</h4>
-                  <NavLink to={"/products"}>
-                    <button
-                      type="button"
-                      className="btn btn-dark btn-rounded btn-lg"
-                    >
-                      Shop Now
-                    </button>
-                  </NavLink>
-                  <div className="d-flex justify-content-between text-center mt-3 mb-2">
-                    <div>
-                      <img
-                        src="https://cdn-icons-png.flaticon.com/512/1008/1008010.png"
-                        width="23px"
-                        alt="Orders"
-                      />
-                      <button className="btn btn-outline-dark mt-2">
-                        My Orders
-                      </button>
-                    </div>
-                    <div className="px-3">
-                      <NavLink to={"/cart"}>
-                        <img
-                          src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png"
-                          width="23px"
-                          alt="Cart"
-                        />
-                        <button className="btn btn-outline-dark mt-2">
-                          My Cart
-                        </button>
-                      </NavLink>
-                    </div>
-                    <div>
-                      <img
-                        src="https://cdn-icons-png.flaticon.com/512/482/482541.png"
-                        width="23px"
-                        alt="Wallet"
-                      />
-                      <button className="btn btn-outline-dark mt-2">
-                        My Wallet
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <div className="profile-page">
+      <div className="container profile-inner">
+        <div className="profile-card">
+          <div className="profile-avatar">S</div>
+          <h2 className="profile-name">Sunil</h2>
+          <NavLink to="/products">
+            <button className="btn btn-primary">Shop Now</button>
+          </NavLink>
+
+          <div className="profile-links">
+            {QUICK_LINKS.map((link) =>
+              link.to ? (
+                <NavLink to={link.to} key={link.label} className="profile-link-btn">
+                  {link.label}
+                </NavLink>
+              ) : (
+                <button className="profile-link-btn" key={link.label} type="button">
+                  {link.label}
+                </button>
+              )
+            )}
           </div>
         </div>
-      </section>
-      <Suspense fallback={<div>Loading footer...</div>}>
+      </div>
+      <Suspense fallback={null}>
         <Footer />
       </Suspense>
     </div>

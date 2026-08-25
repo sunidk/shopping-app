@@ -1,36 +1,37 @@
 import { NavLink } from "react-router-dom";
 import { Suspense, lazy } from "react";
+import "./Home.css";
+import { useReveal } from "../hooks/useReveal";
 
 const Products = lazy(() => import("./Products"));
 
 function Home() {
+  const heroRef = useReveal();
+
   return (
     <div>
-      <div className="card text-bg-light">
-        <img
-          src="https://img.freepik.com/premium-photo/amazed-woman-sitting-chair-showing-mobile-phone-shopping-bags-purple-background_74952-2531.jpg?w=996"
-          height="450px"
-          className="card-img"
-          alt=""
-        />
-        <div className="card-img-overlay d-flex align-items-center">
-          <div className="container text-light" id="home">
-            <h5 className="card-title display-3 mb-3 fw-bolder">
-              NEW SEASON ARRIVALS
-            </h5>
-            <p className="card-text lead fs-1">CHECK OUT ALL THE TRENDS</p>
-            <NavLink to={"/products"}>
-              <button type="button" className="btn btn-dark btn-rounded btn-lg">
-                Shop Now
-              </button>
-            </NavLink>
-          </div>
+      <section className="hero">
+        <div className="hero-glow" aria-hidden="true"></div>
+        <div className="container hero-inner reveal" ref={heroRef}>
+          <span className="eyebrow">New Season</span>
+          <h1 className="hero-title">
+            Arrivals built for <span className="text-gradient">every day</span>.
+          </h1>
+          <p className="hero-sub">
+            Curated fashion, accessories, and electronics — shop the trends
+            without the noise.
+          </p>
+          <NavLink to="/products">
+            <button className="btn btn-primary">Shop Now</button>
+          </NavLink>
         </div>
-      </div>
-      <Suspense fallback={<div>Loading products...</div>}>
+      </section>
+
+      <Suspense fallback={<div className="page-loading">Loading products...</div>}>
         <Products />
       </Suspense>
     </div>
   );
 }
+
 export default Home;

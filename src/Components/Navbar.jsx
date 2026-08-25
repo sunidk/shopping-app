@@ -1,120 +1,112 @@
 import { useState } from "react";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
+import "./Navbar.css";
+import { useCart } from "../context/CartContext";
 
 function Navbar() {
-  const [value, setValue] = useState("");
-  const [data, setData] = useState([]);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
+  const { count } = useCart();
 
   const onSearch = (e) => {
-    setValue(e.target.value);
+    const value = e.target.value;
+    setQuery(value);
     axios
       .get("https://fakestoreapi.com/products")
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      .then((response) => setResults(response.data))
+      .catch((error) => console.log(error));
   };
+
+  const filtered = query
+    ? results.filter((product) =>
+        product.title.toLowerCase().startsWith(query.toLowerCase())
+      )
+    : [];
+
   return (
-    <div id="navbar">
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div className="container-fluid">
-          <NavLink className="navbar-brand" to="/">
-            <img
-              src="https://www.freepnglogos.com/uploads/logo-myntra-png/myntra-com-brand-png-0.png"
-              alt="Logo"
-              width="120"
-              className="d-inline-block align-text-top"
-            />
-          </NavLink>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item mx-2">
-                <NavLink to="/" className="nav-link text-light">
-                  Home
-                </NavLink>
-              </li>
-              <li className="nav-item mx-2">
-                <NavLink to="/products" className="nav-link text-light">
-                  Products
-                </NavLink>
-              </li>
-            </ul>
-            <form
-              className="d-flex me-3"
-              role="search"
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <input
-                value={value}
-                className="form-control me-2"
-                onChange={onSearch}
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <NavLink to="/cart">
-                <button className="btn btn-light" type="button">
-                  <div className="d-flex align-items-center">
-                    <img
-                      src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png"
-                      height="23px"
-                      alt="Cart"
-                    />
-                    <span id="cart" className="ms-2 fw-bold">
-                      Cart
-                    </span>
-                  </div>
-                </button>
+    <nav className="navbar">
+      <div className="container navbar-inner">
+        <NavLink to="/" className="navbar-brand" onClick={() => setMenuOpen(false)}>
+          <span className="text-gradient">Cartly</span>
+        </NavLink>
+
+        <button
+          className={`menu-icon ${menuOpen ? "open" : ""}`}
+          onClick={() => setMenuOpen((open) => !open)}
+          aria-label="Toggle menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div className={`navbar-collapse ${menuOpen ? "open" : ""}`}>
+          <ul className="nav-links">
+            <li>
+              <NavLink to="/" onClick={() => setMenuOpen(false)}>
+                Home
               </NavLink>
-            </form>
-            <NavLink to="/profile">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/1458/1458201.png"
-                className="me-2"
-                width="40px"
-                alt="Profile"
-              />
+            </li>
+            <li>
+              <NavLink to="/products" onClick={() => setMenuOpen(false)}>
+                Products
+              </NavLink>
+            </li>
+          </ul>
+
+          <div className="navbar-search">
+            <input
+              value={query}
+              onChange={onSearch}
+              type="search"
+              placeholder="Search products..."
+              aria-label="Search"
+            />
+            {query && (
+              <div className="search-results">
+                {filtered.length === 0 ? (
+                  <div className="search-result search-result--empty">No matches</div>
+                ) : (
+                  filtered.map((product) => (
+                    <NavLink
+                      to={`/productdetail/${product.id}`}
+                      key={product.id}
+                      className="search-result"
+                      onClick={() => {
+                        setQuery("");
+                        setMenuOpen(false);
+                      }}
+                    >
+                      {product.title}
+                    </NavLink>
+                  ))
+                )}
+              </div>
+            )}
+          </div>
+
+          <div className="navbar-actions">
+            <NavLink to="/cart" className="cart-link" onClick={() => setMenuOpen(false)}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="9" cy="21" r="1" />
+                <circle cx="20" cy="21" r="1" />
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+              </svg>
+              <span>Cart</span>
+              {count > 0 && <span className="cart-badge">{count}</span>}
+            </NavLink>
+            <NavLink to="/profile" className="profile-link" onClick={() => setMenuOpen(false)}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8" />
+              </svg>
             </NavLink>
           </div>
         </div>
-      </nav>
-      {value && (
-        <div
-          className="dropdown"
-          id="search"
-          style={{ position: "absolute", zIndex: 1000, width: "100%" }}
-        >
-          {data
-            .filter((product) => {
-              const searchTerm = value.toLowerCase();
-              const title = product.title.toLowerCase();
-              return searchTerm && title.startsWith(searchTerm);
-            })
-            .map((product) => (
-              <div
-                className="dropdown-row bg-white px-3 py-2 border-bottom"
-                key={product.id}
-              >
-                {product.title}
-              </div>
-            ))}
-        </div>
-      )}
-    </div>
+      </div>
+    </nav>
   );
 }
 

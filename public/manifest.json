@@ -1,10 +1,10 @@
 {
-  "short_name": "ShoppingApp",
-  "name": "My Shopping App",
+  "short_name": "Cartly",
+  "name": "Cartly — Demo Storefront",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "background_color": "#faf8f6",
+  "theme_color": "#faf8f6",
   "icons": [
     {
       "src": "logo192.png",
